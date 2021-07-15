@@ -8,7 +8,7 @@ import asyncio
 import time
 from datetime import datetime, timedelta
 from faceit_data import FaceitData
-
+from profile import profile
 
 key_api = os.environ['api_key']
 
@@ -35,25 +35,8 @@ async def on_message(message):
 
 @bot.command()
 async def search_player(ctx, player_name: str, game: str):
-    counter = 0
-    index_valid = 0         
-    faceit_data = FaceitData(key_api)
-    players = faceit_data.search_players(player_name, game)
-    for el in players["items"]:
-      if el['nickname'] == player_name:
-#          await ctx.send(f'Jucatorul cu numele {player_name} nu exista!')
-          index_valid = counter
-      counter = counter + 1
-    profil = players["items"][int(index_valid)]
-    idPlayer = profil['player_id']
-    stats = faceit_data.player_id_details(idPlayer)
-    nickName = profil['nickname']
-    status = profil['status']
-    nameGame = profil['games'][0]['name']
-    gameSkill = profil['games'][0]['skill_level']
-    country = profil['country']
-    verified = profil['verified']
-    avatar = profil['avatar']
+    items = profile(player_name, game)
+    print(items)
 
 
 
