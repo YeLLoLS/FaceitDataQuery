@@ -32,5 +32,5 @@ def profile(player_name, game):
     country = profil['country']
     verified = profil['verified']
     avatar = profil['avatar']
-
-    return idPlayer, nickName, nameGame, gameSkill, elo, status, country, verified, avatar, winRate, avgKD, avgHS, recentResults, longestWINstreak, currentWINstreak, matches, wins, loses
+    steam_id_64 = info_stats['steam_id_64']
+    return idPlayer, nickName, nameGame, gameSkill, elo, status, country, verified, avatar, winRate, avgKD, avgHS, recentResults, longestWINstreak, currentWINstreak, matches, wins, loses, steam_id_64
