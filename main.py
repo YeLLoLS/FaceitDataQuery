@@ -46,6 +46,9 @@ async def search_player(ctx, player_name: str, game: str):
     colors_list = importante['colors']
     random_color = hex(int(secrets.choice(colors_list)))
     recent_results = '{} {} {} {} {}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
+    country_UPPER = items[6]
+    country = country_UPPER.lower()
+    img_country = importante['flags'][f'{country}']
 
     embed = discord.Embed(title='Steam profile', url=steam_profile, color=int(random_color, 16))
     embed.set_thumbnail(url=f'{lvl_img}')
@@ -66,6 +69,8 @@ async def search_player(ctx, player_name: str, game: str):
     embed.add_field(name='Matches', value= items[15] , inline=True)
     embed.add_field(name='Wins', value= items[16], inline=True)
     embed.add_field(name='Loses', value= items[17], inline=True)
+
+    embed.set_footer(text= f'Country position: {items[21]}', icon_url= img_country)
 
     await ctx.send(content=None, embed=embed)
 

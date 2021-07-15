@@ -15,6 +15,16 @@ def profile(player_name, game):
     idPlayer = profil['player_id']
     info_stats = faceit_data.player_id_details(idPlayer)
     
+    ranking = faceit_data.player_ranking_of_game(game, info_stats['games'][f'{game}']['region'], idPlayer, info_stats['country'])
+
+    counter2 = 0
+    index_valid2 = 0
+    for el in ranking['items']:
+        if el['player_id'] == id:
+            index_valid2 = counter2
+        counter2 = counter2 + 1
+    correct_player = ranking['items'][index_valid2]
+    country_ranking = correct_player['position']
     stats = faceit_data.player_stats(player_id=idPlayer, game_id='csgo')
     winRate = stats['lifetime']['Win Rate %']
     avgKD = stats['lifetime']['Average K/D Ratio']
@@ -44,4 +54,4 @@ def profile(player_name, game):
     steam_id_64 = info_stats['steam_id_64']
     afk = info_stats['infractions']['afk']
     leaver = info_stats['infractions']['leaver']
-    return idPlayer, nickName, nameGame, gameSkill, elo, status, country, verified, avatar, winRate, avgKD, avgHS, lose_wins, longestWINstreak, currentWINstreak, matches, wins, loses, steam_id_64, afk, leaver
+    return idPlayer, nickName, nameGame, gameSkill, elo, status, country, verified, avatar, winRate, avgKD, avgHS, lose_wins, longestWINstreak, currentWINstreak, matches, wins, loses, steam_id_64, afk, leaver, country_ranking
