@@ -23,4 +23,4 @@ def profile(player_name, game):
     verified = profil['verified']
     avatar = profil['avatar']
 
-    return idPlayer, nickName, gameSkill, nameGame, elo, status, country, verified, avatar
+    return idPlayer, nickName, nameGame, gameSkill, elo, status, country, verified, avatar
