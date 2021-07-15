@@ -14,11 +14,20 @@ def profile(player_name, game):
     profil = players["items"][int(index_valid)]
     idPlayer = profil['player_id']
     info_stats = faceit_data.player_id_details(idPlayer)
+    
     stats = faceit_data.player_stats(player_id=idPlayer, game_id='csgo')
     winRate = stats['lifetime']['Win Rate %']
     avgKD = stats['lifetime']['Average K/D Ratio']
     avgHS = stats['lifetime']['Average Headshots %']
     recentResults = stats['lifetime']['Recent Results']
+    lose_wins = []
+    for el in recentResults:
+        if el == '0':
+            lose_wins.append('L')
+        elif el == '1':
+            lose_wins.append('W')
+        else:
+            print("Unknown element!")
     longestWINstreak = stats['lifetime']['Longest Win Streak']
     currentWINstreak = stats['lifetime']['Current Win Streak']
     matches = stats['lifetime']['Matches']
@@ -33,4 +42,6 @@ def profile(player_name, game):
     verified = profil['verified']
     avatar = profil['avatar']
     steam_id_64 = info_stats['steam_id_64']
-    return idPlayer, nickName, nameGame, gameSkill, elo, status, country, verified, avatar, winRate, avgKD, avgHS, recentResults, longestWINstreak, currentWINstreak, matches, wins, loses, steam_id_64
+    afk = info_stats['infractions']['afk']
+    leaver = info_stats['infractions']['leaver']
+    return idPlayer, nickName, nameGame, gameSkill, elo, status, country, verified, avatar, winRate, avgKD, avgHS, lose_wins, longestWINstreak, currentWINstreak, matches, wins, loses, steam_id_64, afk, leaver

@@ -45,12 +45,28 @@ async def search_player(ctx, player_name: str, game: str):
     steam_profile = 'https://steamcommunity.com/profiles/{}/'.format(items[18])
     colors_list = importante['colors']
     random_color = hex(int(secrets.choice(colors_list)))
+    recent_results = '{} {} {} {} {}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
+
     embed = discord.Embed(title='Steam profile', url=steam_profile, color=int(random_color, 16))
     embed.set_thumbnail(url=f'{lvl_img}')
     embed.set_author(name = f'{items[1]}', icon_url = f'{items[8]}')
     
+    embed.add_field(name='ELO', value= items[4], inline=True)
+    embed.add_field(name='Account status', value= items[5], inline=True)
+    embed.add_field(name='Verified', value= items[7], inline=True)
 
-    embed.add_field(name='Profil', value= items[8], inline=True)
+    embed.add_field(name='Win Rate %', value= items[9], inline=True)
+    embed.add_field(name='Average K/D Ratio', value= items[10], inline=True)
+    embed.add_field(name='Average Headshots %', value= items[11], inline=True)
+
+    embed.add_field(name='Recent results', value= recent_results , inline=True)
+    embed.add_field(name='Current Win Streak', value= items[14], inline=True)
+    embed.add_field(name='Longest Win Streak', value= items[13], inline=True)
+
+    embed.add_field(name='Matches', value= items[15] , inline=True)
+    embed.add_field(name='Wins', value= items[16], inline=True)
+    embed.add_field(name='Loses', value= items[17], inline=True)
+
     await ctx.send(content=None, embed=embed)
 
 
