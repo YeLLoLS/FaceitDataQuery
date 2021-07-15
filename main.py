@@ -37,7 +37,15 @@ async def on_message(message):
 async def search_player(ctx, player_name: str, game: str):
     items = profile(player_name, game)
     print(items)
+    with open('levels.json', 'r') as f:
+        level = json.load(f)
 
+    lvl_img = level[f'{items[3]}']
+
+    embed = discord.Embed(title='Titlu')
+    embed.set_author(name = f'{items[1]}', icon_url = f'{lvl_img}')
+    embed.add_field(name='Profil', value= items[8], inline=True)
+    await ctx.send(content=None, embed=embed)
 
 
 
