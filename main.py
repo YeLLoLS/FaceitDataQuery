@@ -114,9 +114,9 @@ async def search_player(ctx, player_name=None):
         print(overall)
         verdict = ''
         if 85 <= overall <= 100:
-            verdict = 'SMURF or CHEATER!!!'
+            verdict = 'SMURF :clown: or CHEATER :skull_crossbones:'
         elif 70 <= overall <= 85:
-            verdict = 'SMURF!!!'
+            verdict = 'SMURF :clown:'
         elif overall < 70:
             verdict = 'LEGIT :white_check_mark: :100:'
         
@@ -124,7 +124,7 @@ async def search_player(ctx, player_name=None):
 
         embed.set_footer(text= f'Country position: {country_UPPER} {items[21]}', icon_url= img_country)
 
-        await ctx.send(content=None, embed=embed)
+        await ctx.send(embed=embed)
     
 
 my_secret = os.environ['SECRET']
