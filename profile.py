@@ -50,7 +50,7 @@ def profile(player_name, game):
     gameSkill = profil['games'][0]['skill_level']
     country = profil['country']
     verified = profil['verified']
-    if verified == 'True':
+    if verified == True:
         verified = ':white_check_mark:'
     else:
         verified = ':x:'
