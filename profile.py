@@ -33,9 +33,9 @@ def profile(player_name, game):
     lose_wins = []
     for el in recentResults:
         if el == '0':
-            lose_wins.append('L')
+            lose_wins.append(':x:')
         elif el == '1':
-            lose_wins.append('W')
+            lose_wins.append(':white_check_mark:')
         else:
             print("Unknown element!")
     longestWINstreak = stats['lifetime']['Longest Win Streak']
@@ -50,6 +50,10 @@ def profile(player_name, game):
     gameSkill = profil['games'][0]['skill_level']
     country = profil['country']
     verified = profil['verified']
+    if verified == 'True':
+        verified = ':white_check_mark:'
+    else:
+        verified = ':x:'
     avatar = profil['avatar']
     steam_id_64 = info_stats['steam_id_64']
     afk = info_stats['infractions']['afk']

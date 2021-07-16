@@ -64,13 +64,17 @@ async def search_player(ctx, player_name: str, game: str):
 
     embed.add_field(name='Recent results', value= recent_results , inline=True)
     embed.add_field(name='Current Win Streak', value= items[14], inline=True)
-    embed.add_field(name='Longest Win Streak', value= items[13], inline=True)
+
+    if int(items[13]) > 9:
+      embed.add_field(name='Longest Win Streak', value= f'{items[13]} :fire:', inline=True)
+    else:
+      embed.add_field(name='Longest Win Streak', value= f'{items[13]} :zzz:', inline=True)
 
     embed.add_field(name='Matches', value= items[15] , inline=True)
     embed.add_field(name='Wins', value= items[16], inline=True)
     embed.add_field(name='Loses', value= items[17], inline=True)
 
-    embed.set_footer(text= f'Country position: {items[21]}', icon_url= img_country)
+    embed.set_footer(text= f'Country position: {country_UPPER} {items[21]}', icon_url= img_country)
 
     await ctx.send(content=None, embed=embed)
 
