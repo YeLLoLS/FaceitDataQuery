@@ -67,4 +67,4 @@ def profile(player_name, game):
     steam_id_64 = info_stats['steam_id_64']
     afk = info_stats['infractions']['afk']
     leaver = info_stats['infractions']['leaver']
-    return idPlayer, nickName, nameGame, gameSkill, empty_elo, status, country, verified, avatar, winRate, avgKD, avgHS, lose_wins, longestWINstreak, currentWINstreak, matches, wins, loses, steam_id_64, afk, leaver, country_ranking
+    return idPlayer, nickName, nameGame, gameSkill, empty_elo, status, country, verified, avatar, winRate, avgKD, avgHS, lose_wins, longestWINstreak, currentWINstreak, matches, wins, loses, steam_id_64, afk, leaver, country_ranking, elo

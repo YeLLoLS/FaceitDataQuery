@@ -82,7 +82,7 @@ async def search_player(ctx, player_name=None):
         embed.add_field(name='AFK', value= items[19], inline=True)
         embed.add_field(name='LEAVE', value= items[20], inline=True)
         overall = 0
-        if 0 <= int(items[9]) <= 65:  > 1.0 and int(items[11]) > 40:
+        if 0 <= int(items[9]) <= 65:
             overall = overall + 10
         else:
             overall = overall + 20
@@ -92,7 +92,35 @@ async def search_player(ctx, player_name=None):
         else:
             overall = overall + 20
 
+        if 0 <= int(items[11]) <= 65:
+            overall = overall + 10
+        else:
+            overall = overall + 20
+
+        if 0 <= int(items[15]) <= 60 and int(items[22]) > 2001:
+            overall = overall + 40
+        elif 0 <= int(items[15]) <= 250 and int(items[22]) > 1851:
+            overall = overall + 35
+        elif 0 <= int(items[15]) <= 450 and int(items[22]) > 1701:
+            overall = overall + 30
+        elif int(items[15]) > 450 and int(items[22]) > 0:
+            overall = overall + 10
+        elif 60 <= int(items[15]) <= 115 and 1251 <= int(items[22]) <= 1551:
+            overall = overall + 15
+        elif 0 <= int(items[15]) <= 60 and 1251 <= int(items[22]) <= 1551:
+            overall = overall + 25
+        elif 0 <= int(items[15]) <= 60 and int(items[22]) < 1251:
+            overall = overall + 20
+
+        verdict = ''
+        if 85 <= overall <= 100:
+            verdict = 'SMURF or CHEATER!!!'
+        elif 70 <= overall <= 85:
+            verdict = 'SMURF!!!'
+        elif overall < 70:
+            verdict = 'LEGIT!!!'
         
+        embed.add_field(name='OVERALL', value= verdict, inline=True)
 
         embed.set_footer(text= f'Country position: {country_UPPER} {items[21]}', icon_url= img_country)
 
