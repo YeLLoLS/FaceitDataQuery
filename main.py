@@ -35,9 +35,10 @@ async def on_message(message):
       return
 
 @bot.command()
-async def search_player(ctx, player_name=None, game=None):
-    if player_name == None or game == None:
-        await ctx.send("Both, player name and game, must needed! ex. !search_player -YeLLo- csgo")
+async def search_player(ctx, player_name=None):
+    game = 'csgo'
+    if player_name == None:
+        await ctx.send("You forgot to mention player name!")
     else:
         items = profile(player_name, game)
         print(items) #needed for development only
@@ -48,7 +49,7 @@ async def search_player(ctx, player_name=None, game=None):
         steam_profile = 'https://steamcommunity.com/profiles/{}/'.format(items[18])
         colors_list = importante['colors']
         random_color = hex(int(secrets.choice(colors_list)))
-        recent_results = '{}{}{}{}{}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
+        recent_results = '{} {} {} {} {}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
         
         country_UPPER = items[6]
         country = country_UPPER.lower()
@@ -81,8 +82,17 @@ async def search_player(ctx, player_name=None, game=None):
         embed.add_field(name='AFK', value= items[19], inline=True)
         embed.add_field(name='LEAVE', value= items[20], inline=True)
         overall = 0
-        if int(items[9]) > 50 and float(items[10]) > 1.0 and int(items[11]) > 40:
+        if 0 <= int(items[9]) <= 65:  > 1.0 and int(items[11]) > 40:
             overall = overall + 10
+        else:
+            overall = overall + 20
+        
+        if 0.0 <= float(items[10]) <= 1.5:
+            overall = overall + 10
+        else:
+            overall = overall + 20
+
+        
 
         embed.set_footer(text= f'Country position: {country_UPPER} {items[21]}', icon_url= img_country)
 
