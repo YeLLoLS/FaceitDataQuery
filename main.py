@@ -111,16 +111,16 @@ async def search_player(ctx, player_name=None):
             overall = overall + 25
         elif 0 <= int(items[15]) <= 60 and int(items[22]) < 1251:
             overall = overall + 20
-
+        print(overall)
         verdict = ''
         if 85 <= overall <= 100:
             verdict = 'SMURF or CHEATER!!!'
         elif 70 <= overall <= 85:
             verdict = 'SMURF!!!'
         elif overall < 70:
-            verdict = 'LEGIT!!!'
+            verdict = 'LEGIT :white_check_mark: :100:'
         
-        embed.add_field(name='OVERALL', value= verdict, inline=True)
+        embed.add_field(name=f'OVERALL POINTS: {overall}', value= verdict, inline=True)
 
         embed.set_footer(text= f'Country position: {country_UPPER} {items[21]}', icon_url= img_country)
 
