@@ -35,57 +35,59 @@ async def on_message(message):
       return
 
 @bot.command()
-async def search_player(ctx, player_name: str, game: str):
-    items = profile(player_name, game)
-    print(items) #needed for development only
-    with open('importante.json', 'r') as f:
-        importante = json.load(f)
-
-    lvl_img = importante['levels'][f'{items[3]}']
-    steam_profile = 'https://steamcommunity.com/profiles/{}/'.format(items[18])
-    colors_list = importante['colors']
-    random_color = hex(int(secrets.choice(colors_list)))
-    recent_results = '{}{}{}{}{}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
-    
-    country_UPPER = items[6]
-    country = country_UPPER.lower()
-    img_country = importante['flags'][f'{country}']
-
-    embed = discord.Embed(title='Steam profile', url=steam_profile, color=int(random_color, 16))
-    embed.set_thumbnail(url=f'{lvl_img}')
-    embed.set_author(name = f'{items[1]}', icon_url = f'{items[8]}')
-    
-    embed.add_field(name='ELO', value= items[4], inline=True)
-    embed.add_field(name='Account status', value= items[5], inline=True)
-    embed.add_field(name='Verified', value= items[7], inline=True)
-
-    embed.add_field(name='Win Rate %', value= items[9], inline=True)
-    embed.add_field(name='Average K/D Ratio', value= items[10], inline=True)
-    embed.add_field(name='Average Headshots %', value= items[11], inline=True)
-
-    embed.add_field(name='Recent results', value= recent_results , inline=True)
-    embed.add_field(name='Current Win Streak', value= items[14], inline=True)
-
-    if int(items[13]) > 9:
-      embed.add_field(name='Longest Win Streak', value= f'{items[13]} :fire:', inline=True)
+async def search_player(ctx, player_name=None, game=None):
+    if player_name == None or game == None:
+        await ctx.send("Both, player name and game, must needed! ex. !search_player -YeLLo- csgo")
     else:
-      embed.add_field(name='Longest Win Streak', value= f'{items[13]} :zzz:', inline=True)
+        items = profile(player_name, game)
+        print(items) #needed for development only
+        with open('importante.json', 'r') as f:
+            importante = json.load(f)
 
-    embed.add_field(name='Matches', value= items[15] , inline=True)
-    embed.add_field(name='Wins', value= items[16], inline=True)
-    embed.add_field(name='Loses', value= items[17], inline=True)
+        lvl_img = importante['levels'][f'{items[3]}']
+        steam_profile = 'https://steamcommunity.com/profiles/{}/'.format(items[18])
+        colors_list = importante['colors']
+        random_color = hex(int(secrets.choice(colors_list)))
+        recent_results = '{}{}{}{}{}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
+        
+        country_UPPER = items[6]
+        country = country_UPPER.lower()
+        img_country = importante['flags'][f'{country}']
 
-    embed.add_field(name='AFK', value= items[19], inline=True)
-    embed.add_field(name='LEAVE', value= items[20], inline=True)
-    overall = 0
-    if int(items[9]) > 50 and float(items[10]) > 1.0 and int(items[11]) > 40:
-        overall = overall + 10
+        embed = discord.Embed(title='Steam profile', url=steam_profile, color=int(random_color, 16))
+        embed.set_thumbnail(url=f'{lvl_img}')
+        embed.set_author(name = f'{items[1]}', icon_url = f'{items[8]}')
+        
+        embed.add_field(name='ELO', value= items[4], inline=True)
+        embed.add_field(name='Account status', value= items[5], inline=True)
+        embed.add_field(name='Verified', value= items[7], inline=True)
 
-    embed.set_footer(text= f'Country position: {country_UPPER} {items[21]}', icon_url= img_country)
+        embed.add_field(name='Win Rate %', value= items[9], inline=True)
+        embed.add_field(name='Average K/D Ratio', value= items[10], inline=True)
+        embed.add_field(name='Average Headshots %', value= items[11], inline=True)
 
-    await ctx.send(content=None, embed=embed)
+        embed.add_field(name='Recent results', value= recent_results , inline=True)
+        embed.add_field(name='Current Win Streak', value= items[14], inline=True)
 
+        if int(items[13]) > 9:
+          embed.add_field(name='Longest Win Streak', value= f'{items[13]} :fire:', inline=True)
+        else:
+          embed.add_field(name='Longest Win Streak', value= f'{items[13]} :zzz:', inline=True)
 
+        embed.add_field(name='Matches', value= items[15] , inline=True)
+        embed.add_field(name='Wins', value= items[16], inline=True)
+        embed.add_field(name='Loses', value= items[17], inline=True)
+
+        embed.add_field(name='AFK', value= items[19], inline=True)
+        embed.add_field(name='LEAVE', value= items[20], inline=True)
+        overall = 0
+        if int(items[9]) > 50 and float(items[10]) > 1.0 and int(items[11]) > 40:
+            overall = overall + 10
+
+        embed.set_footer(text= f'Country position: {country_UPPER} {items[21]}', icon_url= img_country)
+
+        await ctx.send(content=None, embed=embed)
+    
 
 my_secret = os.environ['SECRET']
 bot.run(my_secret)
