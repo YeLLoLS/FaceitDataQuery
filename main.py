@@ -37,7 +37,7 @@ async def on_message(message):
 @bot.command()
 async def search_player(ctx, player_name: str, game: str):
     items = profile(player_name, game)
-    print(items)
+    print(items) #needed for development only
     with open('importante.json', 'r') as f:
         importante = json.load(f)
 
@@ -45,7 +45,8 @@ async def search_player(ctx, player_name: str, game: str):
     steam_profile = 'https://steamcommunity.com/profiles/{}/'.format(items[18])
     colors_list = importante['colors']
     random_color = hex(int(secrets.choice(colors_list)))
-    recent_results = '{} {} {} {} {}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
+    recent_results = '{}{}{}{}{}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
+    
     country_UPPER = items[6]
     country = country_UPPER.lower()
     img_country = importante['flags'][f'{country}']
@@ -73,6 +74,12 @@ async def search_player(ctx, player_name: str, game: str):
     embed.add_field(name='Matches', value= items[15] , inline=True)
     embed.add_field(name='Wins', value= items[16], inline=True)
     embed.add_field(name='Loses', value= items[17], inline=True)
+
+    embed.add_field(name='AFK', value= items[19], inline=True)
+    embed.add_field(name='LEAVE', value= items[20], inline=True)
+    overall = 0
+    if int(items[9]) > 50 and float(items[10]) > 1.0 and int(items[11]) > 40:
+        overall = overall + 10
 
     embed.set_footer(text= f'Country position: {country_UPPER} {items[21]}', icon_url= img_country)
 
