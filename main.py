@@ -52,8 +52,7 @@ async def search_player(ctx, player_name=None):
         recent_results = '{} {} {} {} {}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
         
         country_UPPER = items[6]
-        country = country_UPPER.lower()
-        img_country = importante['flags'][f'{country}']
+        img_country = 'https://www.countryflags.io/{}/flat/64.png'.format(country_UPPER)
 
         embed = discord.Embed(title='Steam profile', url=steam_profile, color=int(random_color, 16))
         embed.set_thumbnail(url=f'{lvl_img}')
@@ -111,6 +110,8 @@ async def search_player(ctx, player_name=None):
             overall = overall + 25
         elif 0 <= int(items[15]) <= 60 and int(items[22]) < 1251:
             overall = overall + 20
+        elif 0 <= int(items[15]) <= 300 and int(items[22]) < 951:
+            overall = overall + 10
         print(overall)
         verdict = ''
         if 85 <= overall <= 100:

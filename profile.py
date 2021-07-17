@@ -50,9 +50,11 @@ def profile(player_name, game):
     list_elo = []
     for el in elo:
       list_elo.append(importante['number_emoji'][f'{el}'])
+    
     empty_elo = ''
     for el in list_elo:
-        empty_elo = empty_elo + el
+        empty_elo = empty_elo + el + ' '
+    
     nickName = profil['nickname']
     status = profil['status']
     nameGame = profil['games'][0]['name']
