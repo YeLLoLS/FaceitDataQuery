@@ -4,4 +4,4 @@ A pretty accurate discord bot which can predict, based on profile stats, abusive
 
 Is under continuous developing, so various features will come!
 
-![alt text](https://github.com/YeLLoLS/FaceitDataQuery/blob/master/images/overall.PNG?raw=true)
+![alt text](https://github.com/YeLLoLS/FaceitDataQuery/blob/master/images/comp.png?raw=true)
