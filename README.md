@@ -11,6 +11,6 @@ Is under continuous developing, so various features will come!
 Prefix: !
 
 | Command | Description |
-| :--- | --- |
-| !search_player playerName | Will show an embed message with lifetime stats and make a prediction about player's profile based on his stats. Player name is **REQUIRED**. |
+| --- | --- |
+|!search_player playerName | Will show an embed message with lifetime stats and make a prediction about player's profile based on his stats. Player name is **REQUIRED**. |
 
