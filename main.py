@@ -9,6 +9,7 @@ import time
 from datetime import datetime, timedelta
 from faceit_data import FaceitData
 from profile import profile
+from overall_verdict import overallVerdict
 import secrets
 
 key_api = os.environ['api_key']
@@ -54,6 +55,10 @@ async def search_player(ctx, player_name=None):
         country_UPPER = items[6]
         img_country = 'https://www.countryflags.io/{}/flat/64.png'.format(country_UPPER)
 
+        overall_info = overallVerdict(win_rate=int(items[9]), avg_KD=float(items[10]), avg_HS=int(items[11]), matches=int(items[15]), elo=int(items[22]))
+        overall = overall_info[0]
+        verdict = overall_info[1]
+
         embed = discord.Embed(title='Steam profile', url=steam_profile, color=int(random_color, 16))
         embed.set_thumbnail(url=f'{lvl_img}')
         embed.set_author(name = f'{items[1]}', icon_url = f'{items[8]}')
@@ -80,46 +85,7 @@ async def search_player(ctx, player_name=None):
 
         embed.add_field(name='AFK', value= items[19], inline=True)
         embed.add_field(name='LEAVE', value= items[20], inline=True)
-        overall = 0
-        if 0 <= int(items[9]) <= 65:
-            overall = overall + 10
-        else:
-            overall = overall + 20
         
-        if 0.0 <= float(items[10]) <= 1.5:
-            overall = overall + 10
-        else:
-            overall = overall + 20
-
-        if 0 <= int(items[11]) <= 65:
-            overall = overall + 10
-        else:
-            overall = overall + 20
-
-        if 0 <= int(items[15]) <= 60 and int(items[22]) > 2001:
-            overall = overall + 40
-        elif 0 <= int(items[15]) <= 250 and int(items[22]) > 1851:
-            overall = overall + 35
-        elif 0 <= int(items[15]) <= 450 and int(items[22]) > 1701:
-            overall = overall + 30
-        elif int(items[15]) > 450 and int(items[22]) > 0:
-            overall = overall + 10
-        elif 60 <= int(items[15]) <= 115 and 1251 <= int(items[22]) <= 1551:
-            overall = overall + 15
-        elif 0 <= int(items[15]) <= 60 and 1251 <= int(items[22]) <= 1551:
-            overall = overall + 25
-        elif 0 <= int(items[15]) <= 60 and int(items[22]) < 1251:
-            overall = overall + 20
-        elif 0 <= int(items[15]) <= 300 and int(items[22]) < 951:
-            overall = overall + 10
-        print(overall)
-        verdict = ''
-        if 85 <= overall <= 100:
-            verdict = 'SMURF :clown: or CHEATER :skull_crossbones:'
-        elif 70 <= overall <= 85:
-            verdict = 'SMURF :clown:'
-        elif overall < 70:
-            verdict = 'LEGIT :white_check_mark: :100:'
         
         embed.add_field(name=f'OVERALL POINTS: {overall}', value= verdict, inline=True)
 
