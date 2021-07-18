@@ -38,27 +38,66 @@ async def on_message(message):
 @bot.command()
 async def search_player(ctx, player_name=None):
     game = 'csgo'
+    #-------- condition for this command to be executed is that player name is REQUIRED --------#
     if player_name == None:
         await ctx.send("You forgot to mention player name!")
     else:
+        #-------- querrying data from faceit using external function (see profile.py) --------#
         items = profile(player_name, game)
+        #-------- end --------#
+
         print(items) #needed for development only
+
+        #-------- opening json file for reading --------#
         with open('importante.json', 'r') as f:
             importante = json.load(f)
+        #-------- end --------#
 
+        #-------- getting lvl image from json file for player's profile --------#
         lvl_img = importante['levels'][f'{items[3]}']
+        #-------- end --------#
+
+        #-------- formatting steam profile url for player's profile --------#
         steam_profile = 'https://steamcommunity.com/profiles/{}/'.format(items[18])
+        #-------- end --------#
+        
+        #-------- getting a random color for embed message --------#
         colors_list = importante['colors']
         random_color = hex(int(secrets.choice(colors_list)))
-        recent_results = '{} {} {} {} {}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
+        #-------- end --------#
         
+        #-------- formatting the recent results --------#
+        bracket = '{} '
+        brackets = bracket * len(items[12])
+        empty_brackets = ''
+        if len(items[12]) == 1:
+            empty_brackets = brackets.format(items[12][0])
+        elif len(items[12]) == 2:
+            empty_brackets = brackets.format(items[12][0], items[12][1])
+        elif len(items[12]) == 3:
+            empty_brackets = brackets.format(items[12][0], items[12][1], items[12][2])
+        elif len(items[12]) == 4:
+            empty_brackets = brackets.format(items[12][0], items[12][1], items[12][2], items[12][3])
+        elif len(items[12]) == 5:
+            empty_brackets = brackets.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
+        else:
+            empty_brackets = 'Strange data'
+        #-------- end --------#
+        
+        #recent_results = '{} {} {} {} {}'.format(items[12][0], items[12][1], items[12][2], items[12][3], items[12][4])
+        
+        #-------- getting user's country and assigning png flag --------#
         country_UPPER = items[6]
         img_country = 'https://www.countryflags.io/{}/flat/64.png'.format(country_UPPER)
+        #-------- end --------#
 
+        #-------- overall function invoked --------#
         overall_info = overallVerdict(win_rate=int(items[9]), avg_KD=float(items[10]), avg_HS=int(items[11]), matches=int(items[15]), elo=int(items[22]))
         overall = overall_info[0]
         verdict = overall_info[1]
+        #-------- end --------#
 
+        #-------- setting embed message --------#
         embed = discord.Embed(title='Steam profile', url=steam_profile, color=int(random_color, 16))
         embed.set_thumbnail(url=f'{lvl_img}')
         embed.set_author(name = f'{items[1]}', icon_url = f'{items[8]}')
@@ -71,7 +110,7 @@ async def search_player(ctx, player_name=None):
         embed.add_field(name='Average K/D Ratio', value= items[10], inline=True)
         embed.add_field(name='Average Headshots %', value= items[11], inline=True)
 
-        embed.add_field(name='Recent results', value= recent_results , inline=True)
+        embed.add_field(name='Recent results', value= empty_brackets , inline=True)
         embed.add_field(name='Current Win Streak', value= items[14], inline=True)
 
         if int(items[13]) > 9:
@@ -85,13 +124,14 @@ async def search_player(ctx, player_name=None):
 
         embed.add_field(name='AFK', value= items[19], inline=True)
         embed.add_field(name='LEAVE', value= items[20], inline=True)
-        
-        
         embed.add_field(name=f'OVERALL POINTS: {overall}', value= verdict, inline=True)
 
         embed.set_footer(text= f'Country position: {country_UPPER} {items[21]}', icon_url= img_country)
+        #-------- end --------#
 
+        #-------- sending the embed message to channel where the command was executed --------#
         await ctx.send(embed=embed)
+        #-------- end --------#
     
 
 my_secret = os.environ['SECRET']
