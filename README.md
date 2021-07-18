@@ -5,3 +5,11 @@ A pretty accurate discord bot which can predict, based on profile stats, abusive
 Is under continuous developing, so various features will come!
 
 ![alt text](https://github.com/YeLLoLS/FaceitDataQuery/blob/master/images/comp.png?raw=true)
+
+# Commands
+
+Prefix: !
+
+| Command | | Description |
+| --- | | --- |
+| !search_player playerName | | Will show an embed message with lifetime stats and make a prediction about player's profile based on his stats. |
