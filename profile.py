@@ -26,7 +26,7 @@ def profile(player_name, game):
         counter2 = counter2 + 1
     correct_player = ranking['items'][index_valid2]
     country_ranking = correct_player['position']
-    stats = faceit_data.player_stats(player_id=idPlayer, game_id='csgo')
+    stats = faceit_data.player_stats(player_id=idPlayer, game_id=game)
     winRate = stats['lifetime']['Win Rate %']
     avgKD = stats['lifetime']['Average K/D Ratio']
     avgHS = stats['lifetime']['Average Headshots %']
