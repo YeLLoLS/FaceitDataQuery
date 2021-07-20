@@ -8,6 +8,7 @@ import time
 from datetime import datetime, timedelta"""
 from faceit_data import FaceitData
 from profile import profile
+from last20 import csgo_last20
 from overall_verdict import overallVerdict
 import secrets
 
@@ -139,6 +140,12 @@ async def search_player(ctx, player_name=None):
         await ctx.send(embed=embed)
         # -------- end --------#
 
+@bot.command()
+async def csgolast20(ctx, player_name=None):
+    if player_name is None:
+        await ctx.send("You forgot to mention player name!")
+    else:
+         csgo_last20(player_name=player_name)
 
 my_secret = os.environ['SECRET']
 bot.run(my_secret)

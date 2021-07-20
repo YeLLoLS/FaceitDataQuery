@@ -569,7 +569,7 @@ class FaceitData:
                 return None
 
     def player_matches(self, player_id=None, game=None, from_timestamp=None, to_timestamp=None,
-                       starting_item_position=0, return_items=20):
+                       starting_item_position=0, return_items=10):
         """Retrieve all matches of a player
         Keyword arguments:
         player_id -- The ID of a player

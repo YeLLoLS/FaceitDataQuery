@@ -7,17 +7,19 @@ key_api = os.environ['api_key']
 
 def profile(player_name, game):
     faceit_data = FaceitData(key_api)
-    players = faceit_data.search_players(player_name, game)
+
     # print(players)
     # -------- getting player id --------#
+    players = faceit_data.search_players(player_name, game)
     counter = 0
     index_valid = 0
     for el in players["items"]:
         if el['nickname'] == player_name:
             index_valid = counter
-        counter = counter + 1
+        counter += 1
     profil = players["items"][int(index_valid)]
     idPlayer = profil['player_id']
+    print(idPlayer)
     # -------- end --------#
 
     info_stats = faceit_data.player_id_details(idPlayer)
