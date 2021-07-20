@@ -25,6 +25,10 @@
           "8": ":eight:",
           "9": ":nine:",
           "10": ":ten:"
+    },
+
+    "game": {
+          "csgo": "https://github.com/YeLLoLS/FaceitDataQuery/blob/master/images/csgo-icon.png?raw=true"
     }
 
 }
